@@ -1,0 +1,28 @@
+const int led = 13; //built in led
+const byte rptPin = 3; 
+
+volatile int state = 0;   // enters the isr so must be volatile
+
+void setup() 
+{
+ // set up the pin modes
+ pinMode(led, OUTPUT);
+ pinMode(rptPin, INPUT_PULLUP); //aka the usual sign in is high and if that either changes or is pulled down we will do something
+
+ // write down the syntax of the built in inturrpt fn 
+ attachInterrupt ( digitalPinToInterrupt(rptPin) , blink, CHANGE);
+
+}
+
+void loop() 
+{
+// repeat : print on the led the value of the isr output 
+
+digitalWrite(led, state);
+
+}
+
+void blink()
+{
+  state = !state;
+}
